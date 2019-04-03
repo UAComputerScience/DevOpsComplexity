@@ -14,11 +14,22 @@ add_definitions(-std=c++11)
 
 include_directories(include)
 
-file(GLOB SRCCOMPLEXITY_SOURCE "src/*.cpp")
+file(GLOB SRCCOMPLEXITY_SOURCE "src/srcComplexity.cpp")
+
+add_library(libsrcmlxpathcount OBJECT src/srcMLXPathCount.cpp)
+target_include_directories(libsrcmlxpathcount PUBLIC ${LIBXML2_INCLUDE_DIR})
+
+add_library(libsrcmlxpathcount_shared SHARED $<TARGET_OBJECTS:libsrcmlxpathcount>)
+set_target_properties(libsrcmlxpathcount_shared PROPERTIES OUTPUT_NAME srcmlxpathcount)
+target_link_libraries(libsrcmlxpathcount_shared PRIVATE ${LIBXML2_LIBRARIES})
+
+add_library(libsrcmlxpathcount_static STATIC $<TARGET_OBJECTS:libsrcmlxpathcount>)
+set_target_properties(libsrcmlxpathcount_static PROPERTIES OUTPUT_NAME srcmlxpathcount)
+target_link_libraries(libsrcmlxpathcount_static PRIVATE ${LIBXML2_LIBRARIES})
 
 add_executable(srcComplexity ${SRCCOMPLEXITY_SOURCE})
 target_include_directories(srcComplexity PUBLIC ${LIBXML2_INCLUDE_DIR})
-target_link_libraries(srcComplexity PUBLIC ${LIBXML2_LIBRARIES})
+target_link_libraries(srcComplexity PRIVATE libsrcmlxpathcount_shared)
 
 if(BUILD_TESTS)
     add_subdirectory(test)
