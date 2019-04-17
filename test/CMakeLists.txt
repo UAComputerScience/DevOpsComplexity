@@ -1,5 +1,7 @@
 # Testing
 
+enable_testing()
+
 file(GLOB TEST_SOURCES "*.cpp")
 file(GLOB IGNORE FOO.cpp)
 list(REMOVE_ITEM TEST_SOURCES ${IGNORE})
@@ -16,3 +18,5 @@ endforeach()
 
 # copy over input test files
 file(COPY srcMLXPathCount.cpp.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+include(CTest)
