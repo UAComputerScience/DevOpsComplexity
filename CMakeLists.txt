@@ -52,3 +52,7 @@ set(CPACK_PACKAGE_VERSION_MINOR "9")
 set(CPACK_PACKAGE_VERSION_PATCH "5")
 
 include(CPack)
+
+enable_testing()
+
+add_test(srcMLXPathCount_t srcMLXPathCount_t)
