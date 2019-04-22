@@ -29,10 +29,3 @@ int main(int argc, const char* argv[]) {
         std::cerr << "Error in applying xpath\n";
         return 1;
     }
-    int complexity = conditionCount + 1;
-
-    // output the cyclomatic complexity
-    std::cout << complexity << '\n';
-
-    return 0;
-}
